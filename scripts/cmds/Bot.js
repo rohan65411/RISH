@@ -76,7 +76,7 @@ const botMsgInfo = async (api, threadID, messageID, senderID, input) => {
     );
 
     if (!res.data || res.data.status !== "Success" || !Array.isArray(res.data.messages) || res.data.messages.length === 0) {
-      return sendMessage(api, threadID, "No matching messages found!🦆💨", messageID);
+      return sendMessage(api, threadID, "No matching messages found!🦆🐤", messageID);
     }
 
     const askText = `📜 Ask: ${res.data.ask}\n\n`;
@@ -192,7 +192,7 @@ module.exports.onStart = async ({ api, event, args }) => {
 module.exports.onChat = async ({ api, event }) => {
   const { threadID, messageID, body, senderID } = event;
 
-  const cMessages = ["🎀 Hello bby!", "🎀 Hi there!", "🎀 Hey! How can I help?"," hlw bby"];
+  const cMessages = ["🎀 Hello bby!", "🎀 Hi there!", "🎀 Hey! How can I help?"," hlw bby" ," heyy bbz ❤️‍🩹🐤" , "amke nh dak diye amr boss rishi ke sms koro 🐥😩];
   const userInput = body.toLowerCase().trim();
 
   const keywords = ["bby", "baby", "bot", "বট", "robot"];
