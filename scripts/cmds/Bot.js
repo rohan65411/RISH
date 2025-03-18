@@ -48,7 +48,7 @@ const talkWithBot = async (api, threadID, messageID, senderID, input) => {
       `${apiBase}/bby?text=${encodeURIComponent(input)}&uid=${senderID}&font=2`
     );
 
-    const reply = res.data?.text || "Please teach me this sentence!🦆💨";
+    const reply = res.data?.text || "Please teach me this sentence!😊";
     const react = res.data.react || "";
 
     return api.sendMessage(reply + react, threadID, (error, info) => {
@@ -192,7 +192,7 @@ module.exports.onStart = async ({ api, event, args }) => {
 module.exports.onChat = async ({ api, event }) => {
   const { threadID, messageID, body, senderID } = event;
 
-  const cMessages = ["🎀 Hello bby!", "🎀 Hi there!", "🎀 Hey! How can I help?"," hlw bby" ," heyy bbz ❤️‍🩹🐤" , "amke nh dak diye amr boss rishi ke sms koro 🐥😩];
+  const cMessages = ["🎀 Hello bby!", "🎀 Hi there!", "🎀 Hey! How can I help?"," hlw bby" ," heyy bbz ❤️‍🩹🐤"];
   const userInput = body.toLowerCase().trim();
 
   const keywords = ["bby", "baby", "bot", "বট", "robot"];
