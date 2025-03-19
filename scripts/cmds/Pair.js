@@ -1,4 +1,5 @@
 
+
 const axios = require("axios");
 const fs = require("fs-extra");
 
@@ -85,7 +86,7 @@ module.exports = {
       });
     } catch (error) {
       console.error("Error in pair command:", error);
-      api.sendMessage("🦆💨 There is no love on your forehead.", event.threadID);
+      api.sendMessage("🤖📴 There is no love on your forehead.", event.threadID);
     }
   }
 };
