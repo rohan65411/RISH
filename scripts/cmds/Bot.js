@@ -206,7 +206,7 @@ module.exports.onChat = async ({ api, event }) => {
         const res = await axios.get(
           `${await getAPIBase()}/bby?text=${encodeURIComponent(question)}&uid=${senderID}&font=2`
         );
-        const replyMsg = res.data?.text || "Please teach me this sentence!🦆💨";
+        const replyMsg = res.data?.text || "Please teach me this sentence!😊☺️";
         const react = res.data.react || "";
 
         return api.sendMessage(replyMsg + react, threadID, (error, info) => {
