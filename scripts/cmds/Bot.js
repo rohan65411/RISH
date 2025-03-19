@@ -48,7 +48,7 @@ const talkWithBot = async (api, threadID, messageID, senderID, input) => {
       `${apiBase}/bby?text=${encodeURIComponent(input)}&uid=${senderID}&font=2`
     );
 
-    const reply = res.data?.text || "Please teach me this sentence!😊";
+    const reply = res.data?.text || "Please teach me this sentence!😊😚";
     const react = res.data.react || "";
 
     return api.sendMessage(reply + react, threadID, (error, info) => {
