@@ -11,7 +11,7 @@ const sendMessage = (api, threadID, message, messageID) =>
   api.sendMessage(message, threadID, messageID);
 
 const cError = (api, threadID, messageID) =>
-  sendMessage(api, threadID, "error🦆💨", messageID);
+  sendMessage(api, threadID, "error🦆☺️", messageID);
 
 const teachBot = async (api, threadID, messageID, senderID, teachText) => {
   const [ask, answers] = teachText.split(" - ").map(text => text.trim());
@@ -192,7 +192,7 @@ module.exports.onStart = async ({ api, event, args }) => {
 module.exports.onChat = async ({ api, event }) => {
   const { threadID, messageID, body, senderID } = event;
 
-  const cMessages = ["🎀 Hello bby!", "🎀 Hi there!", "🎀 Hey! How can I help?"," hlw bby" ," heyy bbz ❤️‍🩹🐤"];
+  const cMessages = ["🎀 Hello bby!", "🎀 Hi there!", "🎀 Hey! How can I help?"," amke na dak diye amr boss ke dako " ," heyy bbz ❤️‍🩹🐤"];
   const userInput = body.toLowerCase().trim();
 
   const keywords = ["bby", "baby", "bot", "বট", "robot"];
