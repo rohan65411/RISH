@@ -1,4 +1,4 @@
-module.exports = {
+exports = {
   config: {
     name: "wanted", // Name of command
     version: "1.0", // Version of command
