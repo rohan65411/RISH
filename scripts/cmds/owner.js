@@ -18,14 +18,14 @@ module.exports = {
 	onStart: async function ({ api, event }) {
 		try {
 			const ownerInfo = {
-				name: '𝙈𝙤𝙝𝙖𝙢𝙢𝙖𝙙 𝙍𝙚𝙭𝙮 ',
-				class: '𝘾𝙡𝙖𝙨𝙨 9 ',
-				group: '𝑺𝑪𝑰𝑬𝑵𝑪𝑬',
+				name: ' ʀɪꜱʜɪ ',
+				class: 'ɪɴᴛᴇʀ 2ɴᴅ ',
+				group: 'ᴀᴄᴄᴏᴜɴᴛɪɴɢ ',
 				gender: '𝑴𝑨𝑳𝑬',
-				Birthday: '18-12-2009',
+				Birthday: '6-10-2007',
 				religion: '𝑰𝑺𝑳𝑨𝑴',
 				hobby: '𝑭𝒍𝒊𝒓𝒕𝒊𝒏𝒈 😁',
-				Fb: 'https://www.facebook.com/share/166VHaYd36/',
+				Fb: ' https://www.facebook.com/sisjsjsisusi',
 				Relationship: '𝙨𝙞𝙣𝙜𝙡𝙚 + 𝙢𝙞𝙣𝙜𝙡𝙚 ',
 				Height: '5"7'
 			};
