@@ -1,3 +1,8 @@
+const https = require('https');
+const http = require('http');
+const fs = require('fs');
+const { Readable } = require('stream');
+
 module.exports = {
   config: {
     name: "pair",
@@ -39,9 +44,22 @@ module.exports = {
         
         Congratulations 💝`,
       attachment: [
-        await getStreamFromURL(`${avatarUrl1}`),
-        await getStreamFromURL(`${avatarUrl2}`)
+        await getStreamFromURL(avatarUrl1),
+        await getStreamFromURL(avatarUrl2)
       ]
     });
   }
 };
+
+function getStreamFromURL(url) {
+  return new Promise((resolve, reject) => {
+    const client = url.startsWith('https') ? https : http;
+    client.get(url, (response) => {
+      if (response.statusCode === 200) {
+        resolve(response);
+      } else {
+        reject(`Failed to fetch image. Status code: ${response.statusCode}`);
+      }
+    }).on('error', (err) => reject(`Error: ${err.message}`));
+  });
+}
