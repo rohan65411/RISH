@@ -38,7 +38,7 @@
 
       // Stylish message design
       const message = `
-      🌊Mizuhara Chizuru😘 𝘂𝗽𝘁𝗶𝗺𝗲💅
+      🌊 ❥ 🐤𝒍𝒊𝒍𝒚 𝒃𝒂𝒃𝒚 ࿐😘 𝘂𝗽𝘁𝗶𝗺𝗲💅
 🐤 Uptime: ${uptimeString}
 🌬️ Total Users: ${allUsers.length}
 🔐 Total Threads: ${allThreads.length}
