@@ -1,4 +1,4 @@
-!cmd install system.js const si = require('systeminformation');
+ const si = require('systeminformation');
 const axios = require("axios");
 const request = require("request");
 const fs = require("fs-extra");
