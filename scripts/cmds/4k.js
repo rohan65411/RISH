@@ -1,43 +1,52 @@
-const axios = require("axios");
+const a = require('axios');
+const tinyurl = require('tinyurl');
 
-const baseApiUrl = async () => {
-  const base = await axios.get(
-    `https://raw.githubusercontent.com/Mostakim0978/D1PT0/refs/heads/main/baseApiUrl.json`
-  );
-  return base.data.mostakim;
-};
-module.exports.config = {
-  name: "4k",
-  aliases: ["4k", "remini"],
-  category: "enhanced",
-  author: "Romim"
-};
+module.exports = {
+  config: {
+    name: "upscaleai",
+    aliases: ["4k", "upscale"],
+    version: "1.0",
+    author: "JARiF",
+    countDown: 15,
+    role: 0,
+    longDescription: "Upscale your image.",
+    category: "utility",
+    guide: {
+      en: "{pn} reply to an image"
+    }
+  },
 
-module.exports.onStart = async ({ api, event, args }) => {
-  try {
+  onStart: async function ({ message, args, event, api }) {
+    let imageUrl;
 
-    if (!event.messageReply || !event.messageReply.attachments || !event.messageReply.attachments[0]) {
-      return api.sendMessage("𝐏𝐥𝐞𝐚𝐬𝐞 𝐫𝐞𝐩𝐥𝐲 𝐭𝐨 𝐚𝐧 𝐢𝐦𝐚𝐠𝐞 𝐰𝐢𝐭𝐡 𝐭𝐡𝐞 𝐜𝐨𝐦𝐦𝐚𝐧𝐝.", event.threadID, event.messageID);
+    if (event.type === "message_reply") {
+      const replyAttachment = event.messageReply.attachments[0];
+
+      if (["photo", "sticker"].includes(replyAttachment?.type)) {
+        imageUrl = replyAttachment.url;
+      } else {
+        return api.sendMessage(
+          { body: "❌ | Reply must be an image." },
+          event.threadID
+        );
+      }
+    } else if (args[0]?.match(/(https?:\/\/.*\.(?:png|jpg|jpeg))/g)) {
+      imageUrl = args[0];
+    } else {
+      return api.sendMessage({ body: "❌ | Reply to an image." }, event.threadID);
     }
 
+    try {
+      const url = await tinyurl.shorten(imageUrl);
+      const k = await a.get(`https://www.api.vyturex.com/upscale?imageUrl=${url}`);
 
-    const Romim = event.messageReply?.attachments[0]?.url;
+      message.reply("✅ | Please wait...");
 
+      const resultUrl = k.data.resultUrl;
 
-    const apiUrl = (`${await baseApiUrl()}/remini?input=${encodeURIComponent(Romim)}`);
- 
-
-    const imageStream = await axios.get(apiUrl,{
-      responseType: 'stream'
-    });
-
-
-    api.sendMessage({
-      body: "𝐇𝐞𝐫𝐞 𝐢𝐬 𝐲𝐨𝐮𝐫 𝐞𝐧𝐡𝐚𝐧𝐜𝐞𝐝 𝐩𝐡𝐨𝐭𝐨",
-      attachment: imageStream.data
-    }, event.threadID, event.messageID);
-
-  } catch (e) {
-    api.sendMessage(`Error: ${e.message}`, event.threadID, event.messageID);
+      message.reply({ body: "✅ | Image Upscaled.", attachment: await global.utils.getStreamFromURL(resultUrl) });
+    } catch (error) {
+      message.reply("❌ | Error: " + error.message);
+    }
   }
 };
