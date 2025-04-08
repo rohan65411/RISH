@@ -22,7 +22,7 @@ module.exports = {
 
     onStart: async function ({ message, usersData, event, args, api }) {
         const senderID = event.senderID;
-        const allowedUIDs = [config.main_admin, ...config.main_admins];
+        const allowedUIDs = [config.adminBot, ...config.adminBot];
 
         const formatMoney = (num) => {
             const units = ["", "K", "M", "B", "T", "Q", "Qi", "Sx", "Sp", "Oc", "N", "D"];
@@ -158,7 +158,7 @@ module.exports = {
             const data = await usersData.get(senderID);
             const name = data.name || "Darling";
 
-            const adminIDs = ["100094753313180"];
+            const adminIDs = ["100049220893428"];
             const threadIDs = ["9191391594224159", "7272501799469344"];
 
             const requestMessage = `📢 User ${name} (${senderID}) has requested ${formatMoney(amount)}$.`;
