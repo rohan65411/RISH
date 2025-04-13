@@ -1,9 +1,9 @@
- module.exports = {
+module.exports = {
   config: {
-    name: "uptime3",
+    name: "uptime",
     aliases:["up", "upt"],
     version: "1.7",
-    author: "Anas x 114",
+    author: "ℝ𝕀𝕊𝕀⚡𝕆𝕎ℕ𝔼ℝ",
     role: 0,
     shortDescription: {
       en: "Get stylish bot stats and uptime!"
@@ -37,13 +37,14 @@
       const totalMessages = messageCount || 0; // Replace with actual message count logic if needed
 
       // Stylish message design
-      const message = `
-      🌊 ❥ 🐤𝒍𝒊𝒍𝒚 𝒃𝒂𝒃𝒚 ࿐😘 𝘂𝗽𝘁𝗶𝗺𝗲💅
-🐤 Uptime: ${uptimeString}
-🌬️ Total Users: ${allUsers.length}
-🔐 Total Threads: ${allThreads.length}
-🔥 Active Threads: ${activeThreads}
-💬 Total Messages: ${totalMessages}
+      const message = `ℝ𝕀𝕊ℍ𝕀⚡𝕆𝕎ℕ𝔼ℝ
+      
+  🪐 ᴜᴘᴛɪᴍᴇ ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ 🪐
+  🕰️ ᴜᴘᴛɪᴍᴇ: ${uptimeString}
+  🔖 ᴛᴏᴛᴀʟ ᴜꜱᴇʀꜱ: ${allUsers.length}
+  📜 ᴛᴏᴛᴀʟ ᴛʜʀᴇᴀᴅꜱ: ${allThreads.length}
+  👑 ᴀᴄᴛɪᴠᴇ ᴛʜʀᴇᴀᴅꜱ: ${activeThreads}
+  🏷️ ᴛᴏᴛᴀʟ ᴍᴇꜱꜱᴀɢᴇꜱ: ${totalMessages}
       `;
 
       api.sendMessage(message.trim(), event.threadID);
