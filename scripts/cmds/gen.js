@@ -1,69 +1,57 @@
+const fs = require("fs");
+const path = require("path");
+const axios = require("axios");
+
 module.exports = {
-		config: {
-				name: "generate",
-                                aliases:["gen"],
-				version: "1.0.0",
-				role: 0,
-				author: "deku",
-				shortDescription: "Generate image",
-				countDown: 0,
-				category: "image",
-				guide: {
-						en: '{p}gen [prompt]'
-				}
-		},
+  config: {
+    name: "gen",
+    aliases: [],
+    author: "Rishi--",
+    version: "1.0",
+    cooldowns: 20,
+    role: 0,
+    shortDescription: "Generate an image based on a prompt.",
+    longDescription: "Generates an image using the provided prompt.",
+    category: "ai",
+    guide: "{p}gen <prompt>",
+  },
+  onStart: async function ({ message, args, api, event }) {
+    // Obfuscated author name check
+    const obfuscatedAuthor = String.fromCharCode(77, 97, 104, 105, 45, 45);
+    if (this.config.author !== obfuscatedAuthor) {
+      return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
+    }
 
-		onStart: async function ({ api, event, args }) {
-				const axios = require('axios');
-				const fs = require('fs');
-				const { Prodia } = require("prodia.js");
+    const prompt = args.join(" ");
 
-				let t = args.join(" ");
-				if (!t) return api.sendMessage('Missing prompt!', event.threadID, event.messageID);
-				api.sendMessage('Processing request...', event.threadID, event.messageID);
+    if (!prompt) {
+      return api.sendMessage("❌ | You need to provide a prompt.", event.threadID);
+    }
 
-				try {
-						const prodia = new Prodia("70b8b086-24d8-4b14-b870-39efe453e5d3");
-						const bestModel = ["absolutereality_V16.safetensors [37db0fc3]", "absolutereality_v181.safetensors [3d9d4d2b]", "amIReal_V41.safetensors [0a8a2e61]", "ICantBelieveItsNotPhotography_seco.safetensors [4e7a3dfd]"];
-						let url = [];
-						let image = [];
+    api.sendMessage("Please wait, we're making your picture...", event.threadID, event.messageID);
 
-						for (let i of bestModel) {
-								const generate = await prodia.generateImage({
-										prompt: t,
-										model: i,
-										negative_prompt: "BadDream, (UnrealisticDream:1.3)",
-										sampler: "DPM++ SDE Karras",
-										cfg_scale: 9,
-										steps: 30,
-										aspect_ratio: "portrait"
-								});
+    try {
+      const mrgenApiUrl = `https://hopelessmahi.onrender.com/api/image?prompt=${encodeURIComponent(prompt)}`;
 
-								while (generate.status !== "succeeded" && generate.status !== "failed") {
-										await new Promise(resolve => setTimeout(resolve, 250));
-										const job = await prodia.getJob(generate.job);
+      const mrgenResponse = await axios.get(mrgenApiUrl, {
+        responseType: "arraybuffer"
+      });
 
-										if (job.status === "succeeded") {
-												url.push(job.imageUrl);
-												break;
-										}
-								}
-						}
+      const cacheFolderPath = path.join(__dirname, "cache");
+      if (!fs.existsSync(cacheFolderPath)) {
+        fs.mkdirSync(cacheFolderPath);
+      }
+      const imagePath = path.join(cacheFolderPath, `${Date.now()}_generated_image.png`);
+      fs.writeFileSync(imagePath, Buffer.from(mrgenResponse.data, "binary"));
 
-						let c = 0;
-						for (let urls of url) {
-								c += 1;
-								const pathh = __dirname + "/cache/generated-" + c + ".png";
-								const response = await axios.get(urls, { responseType: "arraybuffer" });
-								fs.writeFileSync(pathh, Buffer.from(response.data, "binary"));
-								image.push(fs.createReadStream(pathh));
-						}
-
-						console.log('Downloaded');
-						return api.sendMessage({ body: "Here's the results", attachment: image }, event.threadID, event.messageID);
-				} catch (e) {
-						console.error("Error generating image:", e.message);
-						return api.sendMessage(e.message, event.threadID, event.messageID);
-				}
-		}
+      const stream = fs.createReadStream(imagePath);
+      message.reply({
+        body: "",
+        attachment: stream
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      message.reply("❌ | An error occurred. Please try again later.");
+    }
+  }
 };
