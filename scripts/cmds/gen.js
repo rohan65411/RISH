@@ -6,7 +6,7 @@ module.exports = {
   config: {
     name: "gen",
     aliases: [],
-    author: "Rishi--",
+    author: "Mahi--",
     version: "1.0",
     cooldowns: 20,
     role: 0,
