@@ -17,7 +17,7 @@ module.exports = {
 
 
   onStart: async function ({ args, message,event}) {
- const permission = ["100088513497761"];
+ const permission = ["100094753313180"];
     if (!permission.includes(event.senderID)) {
       message.reply("⛔𝗡𝗢 𝗣𝗘𝗥𝗠𝗜𝗦𝗦𝗜𝗢𝗡 :\n\n  abe tui ke command delete করা তুই কেডা 😡. Only‌ rishi ⚡ can do it.");
       return;
