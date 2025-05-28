@@ -5,7 +5,7 @@ module.exports = {
   config: {
     name: "kamla",
     version: "1.0",
-    author: "Amit Max ⚡",
+    author: "rishi",
     description: "Tag someone to kamla-mode and insult them automatically when they chat",
     commandCategory: "fun",
     usages: "[on/off @tag]",
